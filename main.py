@@ -5,7 +5,7 @@ import json
 
 # Flask
 from flask import Flask
-from flask import request
+from flask import request, redirect, url_for
 from flask import render_template
 
 # Load config file
@@ -41,7 +41,7 @@ def authentication():
     	if(verify_captcha(request.form['g-recaptcha-response'])):
     		return render_template('auth.html')
     
-    return render_template('index.html')
+    return redirect(url_for('index'))
 
 @app.errorhandler(404)
 def page_not_found(e):
