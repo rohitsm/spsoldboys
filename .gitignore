@@ -1,0 +1,16 @@
+oldboys.py
+
+config.py
+
+bin/*
+
+include/*
+
+lib/*
+
+*.pyc
+
+*.csv
+
+
+.Python
