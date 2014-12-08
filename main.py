@@ -34,14 +34,28 @@ def verify_captcha(recaptcha_response):
 	return resp
 
 
-@app.route('/auth', methods=['GET', 'POST'])
+@app.route('/search', methods=['GET', 'POST'])
 def authentication():
     # Verify reCaptcha input and render page correctly if captcha verified
     if request.method == 'POST':
     	if(verify_captcha(request.form['g-recaptcha-response'])):
-    		return render_template('auth.html')
+    		return render_template('search.html')
     
     return redirect(url_for('index'))
+
+
+@app.route('/results', methods=['GET', 'POST'])
+def search_request():
+    # Get search terms
+    if request.method == 'POST':
+        oldboy_name = request.form['oldboy']
+        year = request.form['year']
+        print "oldboy_name : %s" %oldboy_name
+        print "year : %s" %year
+
+    return redirect(url_for('index'))
+
+
 
 @app.errorhandler(404)
 def page_not_found(e):
