@@ -68,6 +68,8 @@ def search_request():
         print "oldboy_lname : %s" %oldboy_lname
         print "year : %s" %year
 
+        Oldboy.get_query(oldboy_fname, oldboy_lname, year)
+
     return redirect(url_for('index'))
 
 
