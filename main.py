@@ -21,12 +21,14 @@ recaptcha_secret = config.conf['SHARED_KEY']
 
 
 # def add_to_db():
-    # new_entry = Oldboy(
-    #             firstname = 'John',
-    #             surname = 'Smith',
-    #             year = 1973
-    #             )
-    # new_entry.put()
+#     new_entry = Oldboy(
+#                 firstname = 'John',
+#                 surname = 'Smith',
+#                 year = 1973,
+#                 firstnameLC = 'John'.lower(),
+#                 surnameLC = 'Smith'.lower()
+#                 )
+#     new_entry.put()
 
 @app.route('/')
 def index():
@@ -59,9 +61,11 @@ def authentication():
 def search_request():
     # Get search terms
     if request.method == 'POST':
-        oldboy_name = request.form['oldboy']
+        oldboy_fname = request.form['firstname']
+        oldboy_lname = request.form['lastname']
         year = request.form['year']
-        print "oldboy_name : %s" %oldboy_name
+        print "oldboy_fname : %s" %oldboy_fname
+        print "oldboy_lname : %s" %oldboy_lname
         print "year : %s" %year
 
     return redirect(url_for('index'))

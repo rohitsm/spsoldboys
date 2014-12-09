@@ -11,9 +11,9 @@ class Oldboy(ndb.Model):
 	# Database properties
 
 	# Basic info.
-	firstname 	= ndb.StringProperty(indexed = True)
-	surname 	= ndb.StringProperty(indexed = True)
-	year 		= ndb.IntegerProperty(indexed = True)
+	firstname 	= ndb.StringProperty()
+	surname 	= ndb.StringProperty()
+	year 		= ndb.IntegerProperty()
 	house 		= ndb.StringProperty()
 	
 	# Address info.
@@ -38,7 +38,11 @@ class Oldboy(ndb.Model):
 	email 		= ndb.StringProperty()
 	status 		= ndb.StringProperty()
 
+	# Query related info.
 	last_updated = ndb.DateTimeProperty(auto_now_add = True)
+	firstnameLC = ndb.StringProperty()	# firstname in lowercase
+	surnameLC 	= ndb.StringProperty()		# lastname in lowercase
+
 
 
 	# Read this
@@ -52,31 +56,31 @@ class Oldboy(ndb.Model):
 
 		if surname is not None:
 			
-			# Surname + Firstname
-			if firstname is not None:
-				return Oldboy.query(ndb.AND(Oldboy.surname == surname, Oldboy.firstname == firstname))  \
-									.order(Oldboy.surname).order(Oldboy.firstname)
-
 			# Surname + Year
 			if year is not None:
-				return Oldboy.query(ndb.AND(Oldboy.surname == surname, Oldboy.year == year))  \
-									.order(Oldboy.surname).order(Oldboy.surname)
+				return Oldboy.query(ndb.AND(Oldboy.surnameLC == surname, Oldboy.year == year))  \
+									.order(Oldboy.surnameLC).order(Oldboy.year)
+
+			# Surname + Firstname
+			if firstname is not None:
+				return Oldboy.query(ndb.AND(Oldboy.surnameLC == surname, Oldboy.firstnameLC == firstname))  \
+									.order(Oldboy.surnameLC).order(Oldboy.firstnameLC)
 
 			# Surname
-			return Oldboy.query(Oldboy.surname == surname).order(Oldboy.surname)
+			return Oldboy.query(Oldboy.surnameLC == surname).order(Oldboy.surnameLC)
 
 		if firstname is not None:
 
 			# Firstname + year
 			if year is not None:
-				return Oldboy.query(ndb.AND(Oldboy.firstname == firstname, Oldboy.year == year))  \
-									.order(Oldboy.firstname).order(Oldboy.year)
+				return Oldboy.query(ndb.AND(Oldboy.firstnameLC == firstname, Oldboy.year == year))  \
+									.order(Oldboy.firstnameLC).order(Oldboy.year)
 
 		# Year
 		return Oldboy.query(Oldboy.year == year).order(Oldboy.year)
 
-	@classmethod
-	def get_query
+	# @classmethod
+	# def get_query
 
 
 
@@ -91,22 +95,22 @@ class Oldboy(ndb.Model):
 # for qry in q.fetch():
 # 	logging.info("%s" % str(qry))
 
-# qry = Oldboy.query(Oldboy.surname == "Smith").order(-Oldboy.firstname).order(Oldboy.year)
+# qry = Oldboy.query(Oldboy.surnameLC == "Smith").order(-Oldboy.firstnameLC).order(Oldboy.year)
 # logging.info("count  = %d" % qry.count())
 # for q in qry.fetch():
-# 	logging.info("%s %s %s" % (str(q.firstname), str(q.surname), str(q.year)))
+# 	logging.info("%s %s %s" % (str(q.firstnameLC), str(q.surnameLC), str(q.year)))
 
-qry = Oldboy.query(ndb.AND(Oldboy.surname == "Smith", Oldboy.year == 1973)).order(Oldboy.firstname).order(Oldboy.year)
-logging.info("count  = %d" % qry.count())
-for q in qry.fetch():
-	logging.info("%s %s %s" % (str(q.firstname), str(q.surname), str(q.year)))
+# qry = Oldboy.query(ndb.AND(Oldboy.surnameLC == "Smith", Oldboy.year == 1973)).order(Oldboy.firstnameLC).order(Oldboy.year)
+# logging.info("count  = %d" % qry.count())
+# for q in qry.fetch():
+# 	logging.info("%s %s %s" % (str(q.firstnameLC), str(q.surnameLC), str(q.year)))
 
 
 
 # qry = Oldboy.query(Oldboy.year == 1973)
 # logging.info("count  = %d" % qry.count())
 # for q in qry.fetch():
-# 	logging.info("%s %s" % (str(q.firstname), str(q.surname)))
+# 	logging.info("%s %s" % (str(q.firstnameLC), str(q.surnameLC)))
 
 
 
