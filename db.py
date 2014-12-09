@@ -48,7 +48,35 @@ class Oldboy(ndb.Model):
 	# def add_entry():
 
 	@classmethod
-	def get_entry_by_year():
+	def get_query(self, firstname=None, surname=None, year=None):
+
+		if surname is not None:
+			
+			# Surname + Firstname
+			if firstname is not None:
+				return Oldboy.query(ndb.AND(Oldboy.surname == surname, Oldboy.firstname == firstname))  \
+									.order(Oldboy.surname).order(Oldboy.firstname)
+
+			# Surname + Year
+			if year is not None:
+				return Oldboy.query(ndb.AND(Oldboy.surname == surname, Oldboy.year == year))  \
+									.order(Oldboy.surname).order(Oldboy.surname)
+
+			# Surname
+			return Oldboy.query(Oldboy.surname == surname).order(Oldboy.surname)
+
+		if firstname is not None:
+
+			# Firstname + year
+			if year is not None:
+				return Oldboy.query(ndb.AND(Oldboy.firstname == firstname, Oldboy.year == year))  \
+									.order(Oldboy.firstname).order(Oldboy.year)
+
+		# Year
+		return Oldboy.query(Oldboy.year == year).order(Oldboy.year)
+
+	@classmethod
+	def get_query
 
 
 
@@ -63,16 +91,22 @@ class Oldboy(ndb.Model):
 # for qry in q.fetch():
 # 	logging.info("%s" % str(qry))
 
-qry = Oldboy.query()
+# qry = Oldboy.query(Oldboy.surname == "Smith").order(-Oldboy.firstname).order(Oldboy.year)
+# logging.info("count  = %d" % qry.count())
+# for q in qry.fetch():
+# 	logging.info("%s %s %s" % (str(q.firstname), str(q.surname), str(q.year)))
+
+qry = Oldboy.query(ndb.AND(Oldboy.surname == "Smith", Oldboy.year == 1973)).order(Oldboy.firstname).order(Oldboy.year)
 logging.info("count  = %d" % qry.count())
-for q in qry.filter(Oldboy.surname == "Son").fetch():
-	logging.info("%s %s" % (str(q.firstname), str(q.surname)))
+for q in qry.fetch():
+	logging.info("%s %s %s" % (str(q.firstname), str(q.surname), str(q.year)))
 
 
-qry = Oldboy.query()
-logging.info("count  = %d" % qry.count())
-for q in qry.filter(Oldboy.year == 1989).fetch():
-	logging.info("%s %s" % (str(q.firstname), str(q.surname)))
+
+# qry = Oldboy.query(Oldboy.year == 1973)
+# logging.info("count  = %d" % qry.count())
+# for q in qry.fetch():
+# 	logging.info("%s %s" % (str(q.firstname), str(q.surname)))
 
 
 
