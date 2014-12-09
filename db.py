@@ -54,32 +54,32 @@ class Oldboy(ndb.Model):
 	@classmethod
 	def get_query(self, firstname=None, surname=None, year=None):
 		
-		print "%s %s %s " % (firstname, surname, year)
+		# print "%s %s %s " % (firstname, surname, year)
 
-		# if surname is not None:
+		if surname is not None:
 			
-		# 	# Surname + Year
-		# 	if year is not None:
-		# 		return Oldboy.query(ndb.AND(Oldboy.surnameLC == surname, Oldboy.year == year))  \
-		# 							.order(Oldboy.surnameLC).order(Oldboy.year)
+			# Surname + Year
+			if year is not None:
+				return Oldboy.query(ndb.AND(Oldboy.surnameLC == surname, Oldboy.year == year))  \
+									.order(Oldboy.surnameLC).order(Oldboy.year)
 
-		# 	# Surname + Firstname
-		# 	if firstname is not None:
-		# 		return Oldboy.query(ndb.AND(Oldboy.surnameLC == surname, Oldboy.firstnameLC == firstname))  \
-		# 							.order(Oldboy.surnameLC).order(Oldboy.firstnameLC)
+			# Surname + Firstname
+			if firstname is not None:
+				return Oldboy.query(ndb.AND(Oldboy.surnameLC == surname, Oldboy.firstnameLC == firstname))  \
+									.order(Oldboy.surnameLC).order(Oldboy.firstnameLC)
 
-		# 	# Surname
-		# 	return Oldboy.query(Oldboy.surnameLC == surname).order(Oldboy.surnameLC)
+			# Surname
+			return Oldboy.query(Oldboy.surnameLC == surname).order(Oldboy.surnameLC)
 
-		# if firstname is not None:
+		if firstname is not None:
 
-		# 	# Firstname + year
-		# 	if year is not None:
-		# 		return Oldboy.query(ndb.AND(Oldboy.firstnameLC == firstname, Oldboy.year == year))  \
-		# 							.order(Oldboy.firstnameLC).order(Oldboy.year)
+			# Firstname + year
+			if year is not None:
+				return Oldboy.query(ndb.AND(Oldboy.firstnameLC == firstname, Oldboy.year == year))  \
+									.order(Oldboy.firstnameLC).order(Oldboy.year)
 
-		# # Year
-		# return Oldboy.query(Oldboy.year == year).order(Oldboy.year)
+		# Year
+		return Oldboy.query(Oldboy.year == year).order(Oldboy.year)
 
 	# @classmethod
 	# def get_query

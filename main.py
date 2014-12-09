@@ -12,6 +12,10 @@ from flask import render_template
 import config
 from db import Oldboy
 
+# App Engine
+from google.appengine.ext import ndb
+import logging
+
 app = Flask(__name__)
 
 # URL = recaptcha_url? + secret=your_secret & response=response_string&remoteip=user_ip_address'
@@ -63,12 +67,18 @@ def search_request():
     if request.method == 'POST':
         oldboy_fname = request.form['firstname']
         oldboy_lname = request.form['lastname']
-        year = request.form['year']
+        year = int(request.form['year'])
         print "oldboy_fname : %s" %oldboy_fname
         print "oldboy_lname : %s" %oldboy_lname
         print "year : %s" %year
 
-        Oldboy.get_query(oldboy_fname, oldboy_lname, year)
+        qry = Oldboy.get_query(oldboy_fname.lower(), oldboy_lname.lower(), year)
+        print "Count = ", qry.count()
+        print "Type = ", type(qry)
+        if (qry.count() != 0):
+            for q in qry.fetch():
+                logging.info("%s %s %s" % (str(q.firstname), str(q.surname), str(q.year)))
+            return render_template('results.html')
 
     return redirect(url_for('index'))
 
