@@ -8,8 +8,9 @@ from flask import Flask
 from flask import request, redirect, url_for
 from flask import render_template
 
-# Load config file
+# Application related files
 import config
+from db import Oldboy
 
 app = Flask(__name__)
 
@@ -18,9 +19,19 @@ recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'
 # ReCAPTCHA secret key
 recaptcha_secret = config.conf['SHARED_KEY']
 
+
+# def add_to_db():
+    # new_entry = Oldboy(
+    #             firstname = 'John',
+    #             surname = 'Smith',
+    #             year = 1973
+    #             )
+    # new_entry.put()
+
 @app.route('/')
 def index():
     """Return a friendly HTTP greeting."""
+    # add_to_db()
     return render_template('index.html')
 
 def verify_captcha(recaptcha_response):
@@ -54,7 +65,6 @@ def search_request():
         print "year : %s" %year
 
     return redirect(url_for('index'))
-
 
 
 @app.errorhandler(404)
