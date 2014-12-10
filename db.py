@@ -1,11 +1,14 @@
+# Related DB info found here
+# https://cloud.google.com/appengine/docs/python/ndb/queries
+
+# Google App Engine
 from google.appengine.ext import ndb
 import logging
 
-
 # DB schema:
 # Name, Surname, YearTo, House, Address1, Address2, Address3, Address4,
-# City, State, Pincode, Country, Phone1R, Phone1W, Phone2W, Fax, Profession
-# Email, Phone2R, Status
+# City, State, Pincode, Country, Phone1R, Phone2R, Phone1W, Phone2W, Fax, 
+# Profession, Email, Status
 
 class Oldboy(ndb.Model):
 	# Database properties
@@ -40,16 +43,8 @@ class Oldboy(ndb.Model):
 
 	# Query related info.
 	last_updated = ndb.DateTimeProperty(auto_now_add = True)
-	firstnameLC = ndb.StringProperty()	# firstname in lowercase
+	firstnameLC = ndb.StringProperty()		# firstname in lowercase
 	surnameLC 	= ndb.StringProperty()		# lastname in lowercase
-
-
-
-	# Read this
-	# https://cloud.google.com/appengine/docs/python/ndb/queries
-
-	# @classmethod
-	# def add_entry():
 
 	@classmethod
 	def get_query(self, firstname, surname, year):
@@ -96,11 +91,9 @@ class Oldboy(ndb.Model):
 		print "after DB query %s %s %s " % (firstname, surname, year)
 		return Oldboy.query(Oldboy.year == year).order(Oldboy.year)
 
-	# @classmethod
-	# def get_query
 
-
-
+	@classmethod
+	def add_entry():
 
 # new_entry = Oldboy(
 # 			firstname = "Bob",
