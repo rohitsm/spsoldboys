@@ -2,6 +2,7 @@
 # Python
 import urllib2
 import json
+import sys
 
 # Flask
 from flask import Flask
@@ -55,8 +56,9 @@ def verify_captcha(recaptcha_response):
 def authentication():
     # Verify reCaptcha input and render page correctly if captcha verified
     if request.method == 'POST':
-    	if(verify_captcha(request.form['g-recaptcha-response'])):
-    		return render_template('search.html')
+    	# if(verify_captcha(request.form['g-recaptcha-response'])):
+    	# 	return render_template('search.html')
+        return render_template('search.html') #Delete this line and uncomment 2 above
     
     return redirect(url_for('index'))
 
@@ -65,20 +67,39 @@ def authentication():
 def search_request():
     # Get search terms
     if request.method == 'POST':
-        oldboy_fname = request.form['firstname']
-        oldboy_lname = request.form['lastname']
-        year = int(request.form['year'])
-        print "oldboy_fname : %s" %oldboy_fname
-        print "oldboy_lname : %s" %oldboy_lname
-        print "year : %s" %year
+        try:
+            oldboy_fname = request.form['firstname'].lower()
+            oldboy_lname = request.form['lastname'].lower()
+            year = request.form['year']
+            # print "oldboy_fname : %s" %oldboy_fname
+            # print "oldboy_lname : %s" %type(oldboy_lname)
+            # print "year : %s" % type(year)
 
-        qry = Oldboy.get_query(oldboy_fname.lower(), oldboy_lname.lower(), year)
-        print "Count = ", qry.count()
-        print "Type = ", type(qry)
-        if (qry.count() != 0):
-            for q in qry.fetch():
-                logging.info("%s %s %s" % (str(q.firstname), str(q.surname), str(q.year)))
-            return render_template('results.html')
+            if(not year):
+                print "year null"
+                year = 0
+            
+            if( (not oldboy_fname) or (oldboy_fname.isspace()) ):
+                print "fname null"
+                oldboy_fname = None
+
+            if( (not oldboy_lname) or (oldboy_lname.isspace()) ):
+                print "lname null"
+                oldboy_lname = None
+
+            print "YEAR = ", year
+            qry = Oldboy.get_query(oldboy_fname, oldboy_lname, int(year))
+            print "Count = ", qry.count()
+
+            if (qry.count() != 0):
+                for q in qry.fetch():
+                    logging.info("%s %s %s" % (str(q.firstname), str(q.surname), str(q.year)))
+                return render_template('results.html')
+        
+        except:
+            print "Woah horsey! This shouldn't be happening!"
+            print sys.exc_info() 
+            # Add redirect to incorrect page
 
     return redirect(url_for('index'))
 

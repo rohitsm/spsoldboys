@@ -52,33 +52,48 @@ class Oldboy(ndb.Model):
 	# def add_entry():
 
 	@classmethod
-	def get_query(self, firstname=None, surname=None, year=None):
+	def get_query(self, firstname, surname, year):
 		
-		# print "%s %s %s " % (firstname, surname, year)
+		print "before DB query %s %s %s " % (firstname, surname, year)
+
+		if firstname is not None:
+
+			# Firstname + Year
+			if year != 0:
+				print "1 %s %s %s " % (firstname, surname, year)
+				return Oldboy.query(ndb.AND(Oldboy.firstnameLC == firstname, Oldboy.year == year))  \
+									.order(Oldboy.firstnameLC).order(Oldboy.year)
+			# Firstname + Surname
+			if surname is not None:
+				print "2 %s %s %s " % (firstname, surname, year)
+				return Oldboy.query(ndb.AND(Oldboy.firstnameLC == firstname, Oldboy.surnameLC == surname))  \
+									.order(Oldboy.surnameLC).order(Oldboy.firstnameLC)
+
+			# Firstname
+			print "3 %s %s %s " % (firstname, surname, year)
+			return Oldboy.query(Oldboy.firstnameLC == firstname).order(Oldboy.firstnameLC)
 
 		if surname is not None:
 			
 			# Surname + Year
-			if year is not None:
+			if year != 0:
+				print "4 %s %s %s " % (firstname, surname, year)
 				return Oldboy.query(ndb.AND(Oldboy.surnameLC == surname, Oldboy.year == year))  \
 									.order(Oldboy.surnameLC).order(Oldboy.year)
 
 			# Surname + Firstname
 			if firstname is not None:
+				print "5 %s %s %s " % (firstname, surname, year)
 				return Oldboy.query(ndb.AND(Oldboy.surnameLC == surname, Oldboy.firstnameLC == firstname))  \
 									.order(Oldboy.surnameLC).order(Oldboy.firstnameLC)
 
 			# Surname
+			print "6 %s %s %s " % (firstname, surname, year)
 			return Oldboy.query(Oldboy.surnameLC == surname).order(Oldboy.surnameLC)
 
-		if firstname is not None:
-
-			# Firstname + year
-			if year is not None:
-				return Oldboy.query(ndb.AND(Oldboy.firstnameLC == firstname, Oldboy.year == year))  \
-									.order(Oldboy.firstnameLC).order(Oldboy.year)
-
+		
 		# Year
+		print "after DB query %s %s %s " % (firstname, surname, year)
 		return Oldboy.query(Oldboy.year == year).order(Oldboy.year)
 
 	# @classmethod
