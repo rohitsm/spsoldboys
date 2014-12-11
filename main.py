@@ -10,13 +10,14 @@ from flask import Flask
 from flask import request, redirect, url_for
 from flask import render_template
 
+# App Engine
+from google.appengine.ext import ndb
+import logging
+
 # Application related files
 import config
 from db import Oldboy
 
-# App Engine
-from google.appengine.ext import ndb
-import logging
 
 app = Flask(__name__)
 
@@ -39,7 +40,8 @@ recaptcha_secret = config.conf['SHARED_KEY']
 @app.route('/')
 def index():
     """Return a friendly HTTP greeting."""
-    # add_to_db()
+    Oldboy.add_entry()
+
     return render_template('index.html')
 
 def verify_captcha(recaptcha_response):
@@ -66,6 +68,7 @@ def authentication():
 # Read data from DB and convert it to dict and return it
 def get_search_record( qry ):
     print "inside get_search_record()"
+    print "KEY = ", str(qry.all())
     
     # Format of each db record
     total_ob_entries = []

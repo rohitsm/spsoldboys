@@ -5,6 +5,16 @@
 from google.appengine.ext import ndb
 import logging
 
+# Python
+import csv
+import string
+
+def remove_punctuations(word):
+	exclude = set(string.punctuation)
+	word = ''.join(ch for ch in word if ch not in exclude)
+	return word
+
+
 # DB schema:
 # Name, Surname, YearTo, House, Address1, Address2, Address3, Address4,
 # City, State, Pincode, Country, Phone1R, Phone2R, Phone1W, Phone2W, Fax, 
@@ -91,9 +101,63 @@ class Oldboy(ndb.Model):
 		print "after DB query %s %s %s " % (firstname, surname, year)
 		return Oldboy.query(Oldboy.year == year).order(Oldboy.year)
 
+	@classmethod
+	def add_entry(self):
+		record = Oldboy.query().get()
+		print "type = ", type(record)
+		print "Record = ", record
 
-	# @classmethod
-	# def add_entry():
+		# Reading from the csv files
+		with open('relatedFiles/oldboys.csv', 'rU') as csvfile:
+			entry_list = []
+			reader = csv.reader(csvfile, dialect=csv.excel_tab)	
+			i = 0
+			for row in reader:
+				if i != 0:
+					entry_list = list(row[0].split(','))	#row is of 'List' type
+					print  "entry_list = ", entry_list
+					oldboy_entry = Oldboy(
+						firstname 	= str(entry_list[0]),
+						surname 	= str(entry_list[1]),
+						year 		= int(entry_list[2]),
+						house 		= str(entry_list[3]),
+						
+						# Address info
+						address1 	= str(entry_list[4]),
+						address2 	= str(entry_list[5]),
+						address3 	= str(entry_list[6]),
+						address4 	= str(entry_list[7]),
+						city 	 	= str(entry_list[8]),
+						state 	 	= str(entry_list[9]),
+						pincode 	= str(entry_list[10]),
+						country 	= str(entry_list[11]),
+						
+						# Phone info.
+						phone1r 	= str(entry_list[12]),
+						phone2r 	= str(entry_list[13]),
+						phone1w 	= str(entry_list[14]),
+						phone2w 	= str(entry_list[15]),
+						fax 		= str(entry_list[16]),
+						
+						# Other info.
+						profession 	= str(entry_list[17]),
+						email 		= str(entry_list[18]),
+						status 		= str(entry_list[19]),
+						
+						firstnameLC = remove_punctuations(entry_list[0]).lower(),
+						surnameLC 	= remove_punctuations(entry_list[1]).lower()
+						)
+					oldboy_entry.put()
+
+					break
+				i+= 1
+
+
+		
+
+
+
+
 
 # new_entry = Oldboy(
 # 			firstname = "Bob",
