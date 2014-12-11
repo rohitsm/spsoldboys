@@ -9,11 +9,16 @@ import logging
 import csv
 import string
 
-def remove_punctuations(word):
-	exclude = set(string.punctuation)
-	word = ''.join(ch for ch in word if ch not in exclude)
-	return word
+# Application related files
+from cleanup import CleanUp
 
+
+# def remove_punctuations(word):
+# 	exclude = set(string.punctuation)
+# 	word = ''.join(ch for ch in word if ch not in exclude)
+# 	return word
+
+cleanup = CleanUp()
 
 # DB schema:
 # Name, Surname, YearTo, House, Address1, Address2, Address3, Address4,
@@ -144,8 +149,8 @@ class Oldboy(ndb.Model):
 						email 		= str(entry_list[18]),
 						status 		= str(entry_list[19]),
 						
-						firstnameLC = remove_punctuations(entry_list[0]).lower(),
-						surnameLC 	= remove_punctuations(entry_list[1]).lower()
+						firstnameLC = cleanup.remove_punctuations(entry_list[0]).lower(),
+						surnameLC 	= cleanup.remove_punctuations(entry_list[1]).lower()
 						)
 					oldboy_entry.put()
 
