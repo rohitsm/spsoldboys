@@ -4,16 +4,22 @@
 <h1> Hello World</h1>
 <body>
 	<br><br>
+	{% for entry in records %}
 	<table>
-	{% for key, value in entries.iteritems() %}
-		<tr>
-			<td> {{ key }}		</td>
-			<td> {{ value }}	</td>
 
-		</tr>			
+		{% for key, value in entry.iteritems() %}
+			<tr>
+				<td> {{ key }}		</td>
+				<td> {{ value }}	</td>
 
-	{% endfor %}
+			</tr>			
+
+		{% endfor %}
+
+
+		<hr />
 	</table>
+	{% endfor %}
 
 	<br><br>
 	

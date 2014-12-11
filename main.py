@@ -64,8 +64,10 @@ def authentication():
 
 # Read data from DB and convert it to dict and return it
 def get_search_record( qry ):
+    print "inside get_search_record()"
     
     # Format of each db record
+    total_ob_entries = []
     ob_entry = {}
 
     for q in qry.fetch():        
@@ -97,14 +99,18 @@ def get_search_record( qry ):
         ob_entry['Status']      = str(q.status)
 
         ob_entry['Last Updated'] = str(q.last_updated)
+        print 'ob_entry = ', ob_entry
 
-    return ob_entry
+        total_ob_entries.append(ob_entry)
+
+
+    return total_ob_entries
 
 # Send data from DB to 'results' page
 @app.route('/results', methods=['GET', 'POST'])
 def search_request():
     # Get search terms
-    record = {}
+    record = []
     if request.method == 'POST':
         try:
             oldboy_fname = request.form['firstname'].lower()
@@ -131,7 +137,8 @@ def search_request():
             print "Count = ", qry.count()
 
             if (qry.count() != 0):
-                record = get_search_record(qry)               
+                record = get_search_record(qry)
+                print "Dict = ", record
                 return render_template('results.html', records = record)
 
             return render_template('results.html', records = record)
