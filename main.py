@@ -24,7 +24,6 @@ recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'
 # ReCAPTCHA secret key
 recaptcha_secret = config.conf['SHARED_KEY']
 
-
 # def add_to_db():
 #     new_entry = Oldboy(
 #                 firstname = 'John',
@@ -34,6 +33,7 @@ recaptcha_secret = config.conf['SHARED_KEY']
 #                 surnameLC = 'Smith'.lower()
 #                 )
 #     new_entry.put()
+
 
 @app.route('/')
 def index():
@@ -62,10 +62,49 @@ def authentication():
     
     return redirect(url_for('index'))
 
+# Read data from DB and convert it to dict and return it
+def get_search_record( qry ):
+    
+    # Format of each db record
+    ob_entry = {}
 
+    for q in qry.fetch():        
+        ob_entry['First Name']  = str(q.firstname)
+        ob_entry['Last Name']   = str(q.surname)
+        ob_entry['Year']        = str(q.year)
+        ob_entry['House']       = str(q.house)
+
+        # Address info
+        ob_entry['Address 1']   = str(q.address1)
+        ob_entry['Address 2']   = str(q.address2)
+        ob_entry['Address 3']   = str(q.address3)
+        ob_entry['Address 4']   = str(q.address4)
+        ob_entry['City']        = str(q.city)
+        ob_entry['State']       = str(q.state)
+        ob_entry['Postal Code'] = str(q.pincode)
+        ob_entry['Country']     = str(q.country)
+
+        # Phone info.
+        ob_entry['Phone 1 (R)'] = str(q.phone1r)
+        ob_entry['Phone 2 (R)'] = str(q.phone2r)
+        ob_entry['Phone 1 (W)'] = str(q.phone1w)
+        ob_entry['Phone 2 (W)'] = str(q.phone2w)
+        ob_entry['Fax']         = str(q.fax)
+
+        # Other info.
+        ob_entry['Profession']  = str(q.profession)
+        ob_entry['Email']       = str(q.email)
+        ob_entry['Status']      = str(q.status)
+
+        ob_entry['Last Updated'] = str(q.last_updated)
+
+    return ob_entry
+
+# Send data from DB to 'results' page
 @app.route('/results', methods=['GET', 'POST'])
 def search_request():
     # Get search terms
+    record = {}
     if request.method == 'POST':
         try:
             oldboy_fname = request.form['firstname'].lower()
@@ -92,14 +131,16 @@ def search_request():
             print "Count = ", qry.count()
 
             if (qry.count() != 0):
-                for q in qry.fetch():
-                    logging.info("%s %s %s" % (str(q.firstname), str(q.surname), str(q.year)))
-                return render_template('results.html')
+                record = get_search_record(qry)               
+                return render_template('results.html', records = record)
+
+            return render_template('results.html', records = record)
         
         except:
             print "Woah horsey! This shouldn't be happening!"
             print sys.exc_info() 
             # Add redirect to incorrect page
+            return redirect(url_for('index'))
 
     return redirect(url_for('index'))
 

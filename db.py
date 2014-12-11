@@ -92,8 +92,8 @@ class Oldboy(ndb.Model):
 		return Oldboy.query(Oldboy.year == year).order(Oldboy.year)
 
 
-	@classmethod
-	def add_entry():
+	# @classmethod
+	# def add_entry():
 
 # new_entry = Oldboy(
 # 			firstname = "Bob",

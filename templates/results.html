@@ -1,4 +1,26 @@
-<html>
-	<h1> Hello World</h1>
+<!doctype html>
+<head><title> Results </title></head>
+
+<h1> Hello World</h1>
+<body>
+	<br><br>
+	<table>
+	{% for key, value in entries.iteritems() %}
+		<tr>
+			<td> {{ key }}		</td>
+			<td> {{ value }}	</td>
+
+		</tr>			
+
+	{% endfor %}
+	</table>
+
+	<br><br>
+	
+	<a href="{{	url_for('index') }} "> Index </a>
+
+
+
+</body>
 
 </html>
