@@ -3,6 +3,7 @@
 import urllib2
 import json
 import sys
+from collections import OrderedDict
 
 # Flask
 from flask import Flask
@@ -68,7 +69,7 @@ def get_search_record( qry ):
     
     # Format of each db record
     total_ob_entries = []
-    ob_entry = {}
+    ob_entry = OrderedDict()
 
     for q in qry.fetch():        
         ob_entry['First Name']  = str(q.firstname)
@@ -99,6 +100,7 @@ def get_search_record( qry ):
         ob_entry['Status']      = str(q.status)
 
         ob_entry['Last Updated'] = str(q.last_updated)
+        
         print 'ob_entry = ', ob_entry
 
         total_ob_entries.append(ob_entry)
