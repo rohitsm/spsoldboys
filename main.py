@@ -68,7 +68,6 @@ def authentication():
 # Read data from DB and convert it to dict and return it
 def get_search_record( qry ):
     print "inside get_search_record()"
-    print "KEY = ", str(qry.all())
     
     # Format of each db record
     total_ob_entries = []

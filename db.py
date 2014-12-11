@@ -7,17 +7,9 @@ import logging
 
 # Python
 import csv
-import string
 
 # Application related files
 from cleanup import CleanUp
-
-
-# def remove_punctuations(word):
-# 	exclude = set(string.punctuation)
-# 	word = ''.join(ch for ch in word if ch not in exclude)
-# 	return word
-
 cleanup = CleanUp()
 
 # DB schema:
@@ -155,6 +147,7 @@ class Oldboy(ndb.Model):
 					oldboy_entry.put()
 
 					break
+				print i
 				i+= 1
 
 
