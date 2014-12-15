@@ -104,10 +104,13 @@ def get_search_record( qry ):
         ob_entry['Last Updated'] = str(q.last_updated)
         
         print 'ob_entry = ', ob_entry
+        print "Type of fax = ", type(ob_entry['Fax'])
+        print "Fax = ", ob_entry['Fax']
 
         total_ob_entries.append(ob_entry)
 
 
+    print "Len of total_ob_entries = ", len(total_ob_entries)
     return total_ob_entries
 
 # Send data from DB to 'results' page
@@ -142,7 +145,7 @@ def search_request():
 
             if (qry.count() != 0):
                 record = get_search_record(qry)
-                print "Dict = ", record
+                print "Dict = ", len(record)
                 return render_template('results.html', records = record)
 
             return render_template('results.html', records = record)
