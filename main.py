@@ -126,7 +126,7 @@ def search_request():
 
             if(not year):
                 print "year null"
-                year = 0
+                year = None
             
             if( (not oldboy_fname) or (oldboy_fname.isspace()) ):
                 print "fname null"
@@ -137,7 +137,7 @@ def search_request():
                 oldboy_lname = None
 
             print "YEAR = ", year
-            qry = Oldboy.get_query(oldboy_fname, oldboy_lname, int(year))
+            qry = Oldboy.get_query(oldboy_fname, oldboy_lname, year)
             print "Count = ", qry.count()
 
             if (qry.count() != 0):

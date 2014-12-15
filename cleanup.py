@@ -12,13 +12,13 @@ class CleanUp:
 
 	def adjust_year(self, year):
 		
-		if len(str(year) == 1):
-			return int(str(200) + str(year))
+		if (len(str(year)) == 1):
+			return str(str(200) + str(year))
 		
-		if len(str(year) == 2):
-			return int(str(19) + str(year))
+		if (len(str(year)) == 2):
+			return str(str(19) + str(year))
 		
-		if len(str(year) == 4):
-			return int(year)
+		if (len(str(year)) == 4):
+			return str(year)
 
 

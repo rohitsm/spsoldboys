@@ -7,6 +7,7 @@ import logging
 
 # Python
 import csv
+import sys
 
 # Application related files
 from cleanup import CleanUp
@@ -23,7 +24,7 @@ class Oldboy(ndb.Model):
 	# Basic info.
 	firstname 	= ndb.StringProperty()
 	surname 	= ndb.StringProperty()
-	year 		= ndb.IntegerProperty()
+	year 		= ndb.StringProperty()
 	house 		= ndb.StringProperty()
 	
 	# Address info.
@@ -61,7 +62,7 @@ class Oldboy(ndb.Model):
 		if firstname is not None:
 
 			# Firstname + Year
-			if year != 0:
+			if year is not None:
 				print "1 %s %s %s " % (firstname, surname, year)
 				return Oldboy.query(ndb.AND(Oldboy.firstnameLC == firstname, Oldboy.year == year))  \
 									.order(Oldboy.firstnameLC).order(Oldboy.year)
@@ -78,7 +79,7 @@ class Oldboy(ndb.Model):
 		if surname is not None:
 			
 			# Surname + Year
-			if year != 0:
+			if year is not None:
 				print "4 %s %s %s " % (firstname, surname, year)
 				return Oldboy.query(ndb.AND(Oldboy.surnameLC == surname, Oldboy.year == year))  \
 									.order(Oldboy.surnameLC).order(Oldboy.year)
@@ -100,61 +101,62 @@ class Oldboy(ndb.Model):
 
 	@classmethod
 	def add_entry(self):
-		record = Oldboy.query().get()
-		print "type = ", type(record)
-		print "Record = ", record
+		# record = Oldboy.query().get()
+		# print "type = ", type(record)
+		# print "Record = ", record
 
 		# Reading from the csv files
-		with open('relatedFiles/oldboys.csv', 'rU') as csvfile:
-			entry_list = []
-			reader = csv.reader(csvfile, dialect=csv.excel_tab)	
-			i = 0
-			for row in reader:
-				if i != 0:
-					entry_list = list(row[0].split(','))	#row is of 'List' type
-					print  "entry_list = ", entry_list
-					oldboy_entry = Oldboy(
-						firstname 	= str(entry_list[0]),
-						surname 	= str(entry_list[1]),
-						year 		= int(entry_list[2]),
-						house 		= str(entry_list[3]),
-						
-						# Address info
-						address1 	= str(entry_list[4]),
-						address2 	= str(entry_list[5]),
-						address3 	= str(entry_list[6]),
-						address4 	= str(entry_list[7]),
-						city 	 	= str(entry_list[8]),
-						state 	 	= str(entry_list[9]),
-						pincode 	= str(entry_list[10]),
-						country 	= str(entry_list[11]),
-						
-						# Phone info.
-						phone1r 	= str(entry_list[12]),
-						phone2r 	= str(entry_list[13]),
-						phone1w 	= str(entry_list[14]),
-						phone2w 	= str(entry_list[15]),
-						fax 		= str(entry_list[16]),
-						
-						# Other info.
-						profession 	= str(entry_list[17]),
-						email 		= str(entry_list[18]),
-						status 		= str(entry_list[19]),
-						
-						firstnameLC = cleanup.remove_punctuations(entry_list[0]).lower(),
-						surnameLC 	= cleanup.remove_punctuations(entry_list[1]).lower()
-						)
-					oldboy_entry.put()
+		try:
+			with open('relatedFiles/oldboys.csv', 'rU') as csvfile:
+				entry_list = []
+				reader = csv.reader(csvfile, dialect=csv.excel_tab)	
+				i = 0
+				for row in reader:
+					if i != 0:
+					# if i > 1461:
+						entry_list = list(row[0].split(','))	#row is of 'List' type
+						print  "entry_list = ", entry_list
+						oldboy_entry = Oldboy(
+							firstname 	= str(entry_list[0]).strip('"').upper(),
+							surname 	= str(entry_list[1]).upper(),
+							year 		= str(cleanup.adjust_year(entry_list[2])).upper(),
+							house 		= str(entry_list[3]).upper(),
+							
+							# Address info
+							address1 	= str(entry_list[4].strip('"')).upper(),
+							address2 	= str(entry_list[5].strip('"')).upper(),
+							address3 	= str(entry_list[6].strip('"')).upper(),
+							address4 	= str(entry_list[7].strip('"')).upper(),
+							city 	 	= str(entry_list[8]).upper(),
+							state 	 	= str(entry_list[9]).upper(),
+							pincode 	= str(entry_list[10]).upper(),
+							country 	= str(entry_list[11]).upper(),
+							
+							# Phone info.
+							phone1r 	= str(entry_list[12].strip('"')).upper(),
+							phone2r 	= str(entry_list[13].strip('"')).upper(),
+							phone1w 	= str(entry_list[14].strip('"')).upper(),
+							phone2w 	= str(entry_list[15].strip('"')).upper(),
+							fax 		= str(entry_list[16].strip('"')).upper(),
+							
+							# Other info.
+							profession 	= str(entry_list[17]).upper(),
+							email 		= str(entry_list[18]).upper(),
+							status 		= str(entry_list[19]).upper(),
+							
+							firstnameLC = str(cleanup.remove_punctuations(entry_list[0])).lower(),
+							surnameLC 	= str(cleanup.remove_punctuations(entry_list[1])).lower()
+							)
+						oldboy_entry.put()
 
-					break
-				print i
-				i+= 1
+						# break
+					print "i = ", i
+					i+= 1
 
-
-		
-
-
-
+			# Close the file
+			csvfile.close()
+		except:
+			print sys.exc_info()
 
 
 # new_entry = Oldboy(
