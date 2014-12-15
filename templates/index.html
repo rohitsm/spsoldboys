@@ -1,16 +1,75 @@
-<html>
-  <head>  
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="SPS Alumni Search Page" content="">
+    <meta name="SPS" content="">
+    <!-- <link rel="shortcut icon" href="../../assets/ico/favicon.ico"> -->
+
     <title>SPS Alumni Search Page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/index.css" rel="stylesheet">
+
+    
   </head>
+
   <body>
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <div class="cover-container">
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">St. Peter's School, Panchgani</h3>
+              <ul class="nav masthead-nav">
+                <h3 class="masthead-brand">Alumni Database</h3>
+              </ul>
+            </div>
+          </div>
 
-    <h1> Main </h1>
+          <form method="post" action="login.php">
 
-    <form action="/search" method="POST">
-      <div class="g-recaptcha" data-sitekey="6LcO2_4SAAAAAJQnHHsdrcarIhHGvDEqZCXOHSV8"></div>
-      <br/>
-      <input type="submit" value="Submit" name="Submit">
-    </form>
+            <div class="col-md-12 col-xs-12 " style="border:2px solid blue;"> 
+
+                <h3 class="col-md-offset-2">Please prove that you're not a robot.</h3>
+                
+                <br /><br />
+                <div class="col-md-offset-3">
+                  <div class="g-recaptcha" data-sitekey="6LcO2_4SAAAAAJQnHHsdrcarIhHGvDEqZCXOHSV8">
+                  </div>                  
+                </div>
+                <br /><br />
+        
+              <div class="col-md-4 col-xs-2 col-md-offset-4">
+                  <button type="submit" name="Submit" class="btn-block btn-primary btn">Sign In</button>
+              </div>
+            </div>
+
+          </form>  
+
+          <!-- Copyright and Footer-->
+
+          <div class="mastfoot">
+            <div class="inner">
+              <p>The St. Peter's School, Panchgani Old Boys Association</p>
+            </div>  
+          </div>
+
+        </div><!-- cover-container -->
+      </div><!-- site-wrapper-inner -->
+    </div><!-- site-wrapper -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script> 
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/docs.min.js"></script>
   </body>
 </html>

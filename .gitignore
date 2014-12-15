@@ -15,3 +15,5 @@ lib/*
 .Python
 
 relatedFiles/*
+
+templates/login.html
