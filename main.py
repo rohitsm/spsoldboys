@@ -71,9 +71,9 @@ def get_search_record( qry ):
     
     # Format of each db record
     total_ob_entries = []
-    ob_entry = OrderedDict()
 
     for q in qry.fetch():        
+        ob_entry = OrderedDict()
         ob_entry['First Name']  = str(q.firstname)
         ob_entry['Last Name']   = str(q.surname)
         ob_entry['Year']        = str(q.year)
@@ -104,13 +104,13 @@ def get_search_record( qry ):
         ob_entry['Last Updated'] = str(q.last_updated)
         
         print 'ob_entry = ', ob_entry
-        print "Type of fax = ", type(ob_entry['Fax'])
-        print "Fax = ", ob_entry['Fax']
-
         total_ob_entries.append(ob_entry)
+        # print "Type of fax = ", type(ob_entry['Fax'])
+        # print "Fax = ", ob_entry['Fax']
 
 
-    print "Len of total_ob_entries = ", len(total_ob_entries)
+
+    print "Len of total_ob_entries = ", total_ob_entries
     return total_ob_entries
 
 # Send data from DB to 'results' page
