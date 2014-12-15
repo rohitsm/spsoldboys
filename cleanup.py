@@ -9,7 +9,6 @@ class CleanUp:
 		return word
 
 	# Year
-
 	def adjust_year(self, year):
 		
 		if (len(str(year)) == 1):
@@ -21,4 +20,10 @@ class CleanUp:
 		if (len(str(year)) == 4):
 			return str(year)
 
+	def remove_quotes(self, entry_list):
+		clean_list = []
+		for item in entry_list:
+			clean_list.append(item.strip('"'))
+
+		return clean_list
 

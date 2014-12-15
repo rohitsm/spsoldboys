@@ -99,6 +99,13 @@ class Oldboy(ndb.Model):
 		print "after DB query %s %s %s " % (firstname, surname, year)
 		return Oldboy.query(Oldboy.year == year).order(Oldboy.year)
 
+
+	# @classmethod
+	# def delete_all_entries(self):
+	# 	ob_entry = Oldboy
+
+
+
 	@classmethod
 	def add_entry(self):
 		# record = Oldboy.query().get()
@@ -109,46 +116,46 @@ class Oldboy(ndb.Model):
 		try:
 			with open('relatedFiles/oldboys.csv', 'rU') as csvfile:
 				entry_list = []
-				reader = csv.reader(csvfile, dialect=csv.excel_tab)	
+				reader = csv.reader(csvfile, delimiter = ',', quotechar = "|", dialect=csv.excel_tab)
 				i = 0
 				for row in reader:
 					if i != 0:
 					# if i > 1461:
-						entry_list = list(row[0].split(','))	#row is of 'List' type
+						entry_list = cleanup.remove_quotes(list(row))	#row is of 'List' type
 						print  "entry_list = ", entry_list
 						oldboy_entry = Oldboy(
-							firstname 	= str(entry_list[0]).strip('"').upper(),
-							surname 	= str(entry_list[1]).strip('"').upper(),
-							year 		= str(cleanup.adjust_year(entry_list[2])).strip('"').upper(),
-							house 		= str(entry_list[3]).strip('"').upper(),
+							firstname 	= str(entry_list[0]).upper(),
+							surname 	= str(entry_list[1]).upper(),
+							year 		= str(cleanup.adjust_year(entry_list[2])).upper(),
+							house 		= str(entry_list[3]).upper(),
 							
 							# Address info
-							address1 	= str(entry_list[4]).strip('"').upper(),
-							address2 	= str(entry_list[5]).strip('"').upper(),
-							address3 	= str(entry_list[6]).strip('"').upper(),
-							address4 	= str(entry_list[7]).strip('"').upper(),
-							city 	 	= str(entry_list[8]).strip('"').upper(),
-							state 	 	= str(entry_list[9]).strip('"').upper(),
-							pincode 	= str(entry_list[10]).strip('"').upper(),
-							country 	= str(entry_list[11]).strip('"').upper(),
+							address1 	= str(entry_list[4]).upper(),
+							address2 	= str(entry_list[5]).upper(),
+							address3 	= str(entry_list[6]).upper(),
+							address4 	= str(entry_list[7]).upper(),
+							city 	 	= str(entry_list[-12]).upper(),
+							state 	 	= str(entry_list[-11]).upper(),
+							pincode 	= str(entry_list[-10]).upper(),
+							country 	= str(entry_list[-9]).upper(),
 							
 							# Phone info.
-							phone1r 	= str(entry_list[12]).strip('"').upper(),
-							phone2r 	= str(entry_list[13]).strip('"').upper(),
-							phone1w 	= str(entry_list[14]).strip('"').upper(),
-							phone2w 	= str(entry_list[15]).strip('"').upper(),
-							fax 		= str(entry_list[16]).strip('"').upper(),
+							phone1r 	= str(entry_list[-8]).upper(),
+							phone2r 	= str(entry_list[-7]).upper(),
+							phone1w 	= str(entry_list[-6]).upper(),
+							phone2w 	= str(entry_list[-5]).upper(),
+							fax 		= str(entry_list[-4]).upper(),
 							
 							# Other info.
-							profession 	= str(entry_list[17]).strip('"').upper(),
-							email 		= str(entry_list[18]).strip('"').upper(),
-							status 		= str(entry_list[19]).strip('"').upper(),
+							profession 	= str(entry_list[-3]).upper(),
+							email 		= str(entry_list[-2]).upper(),
+							status 		= str(entry_list[-1]).upper(),
 							
 							firstnameLC = str(cleanup.remove_punctuations(entry_list[0])).lower(),
 							surnameLC 	= str(cleanup.remove_punctuations(entry_list[1])).lower()
 							)
 						oldboy_entry.put()
-
+						# print oldboy_entry
 						# break
 					print "i = ", i
 					i+= 1

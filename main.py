@@ -40,7 +40,7 @@ recaptcha_secret = config.conf['SHARED_KEY']
 @app.route('/')
 def index():
     """Return a friendly HTTP greeting."""
-    Oldboy.add_entry()
+    # Oldboy.add_entry()
 
     return render_template('index.html')
 
@@ -65,7 +65,7 @@ def authentication():
     
     return redirect(url_for('index'))
 
-# Read data from DB and convert it to dict and return it
+# Read data from DB and convert it to a list of dict and return it
 def get_search_record( qry ):
     print "inside get_search_record()"
     
@@ -145,10 +145,10 @@ def search_request():
 
             if (qry.count() != 0):
                 record = get_search_record(qry)
-                print "Dict = ", len(record)
+                print "Dict = ", record
                 return render_template('results.html', records = record)
 
-            return render_template('results.html', records = record)
+            return render_template('index.html', records = record)
         
         except:
             print "Woah horsey! This shouldn't be happening!"
