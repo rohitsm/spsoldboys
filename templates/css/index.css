@@ -49,7 +49,7 @@ body {
 }
 
 .form-group {
-  width: 75%;
+  width: 100%;
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
@@ -121,7 +121,7 @@ body {
 .masthead-brand {
   margin-top: 10px;
   margin-bottom: 10px;
-  color: gold;
+  color: #DAA520;
 }
 
 .masthead-nav > li {
@@ -177,6 +177,10 @@ body {
 /*
  * Footer
  */
+
+footer{
+  color: #DAA520;
+}
 
 .mastfoot {
   color: #999; /* IE8 proofing */

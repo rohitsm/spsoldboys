@@ -25,8 +25,8 @@ handlers:
  static_dir: images
  upload: images/.*
 
-- url: /(.*\.js)
- mime_type: text/javascript
+- url: /js
+ # mime_type: text/javascript
  static_dir: js
 
 

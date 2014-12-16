@@ -12,12 +12,10 @@
     <title>SPS Alumni Search Page</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/index.css" rel="stylesheet">
-
-    
+    <link type="text/css" href="css/index.css" rel="stylesheet">    
   </head>
 
   <body>
@@ -28,36 +26,38 @@
             <div class="inner">
               <h3 class="masthead-brand">St. Peter's School, Panchgani</h3>
               <ul class="nav masthead-nav">
-                <h3 class="masthead-brand">Alumni Database</h3>
+                <h3 class="masthead-brand">Alumni Database <small>(Beta)</small></h3>
               </ul>
             </div>
           </div>
 
-          <form method="post" action="login.php">
+          <form role="form" class="" action="/search" method="POST">
+            <div class="col-md-12 col-xs-12 form-group" > 
 
-            <div class="col-md-12 col-xs-12 " style="border:2px solid blue;"> 
-
-                <h3 class="col-md-offset-2">Please prove that you're not a robot.</h3>
+                <h3 class="text-center">Please prove that you're not a robot.</h3>
                 
                 <br /><br />
-                <div class="col-md-offset-3">
+                <div class="col-md-6 col-xs-6 col-md-offset-3 col-xs-offset-3">
                   <div class="g-recaptcha" data-sitekey="6LcO2_4SAAAAAJQnHHsdrcarIhHGvDEqZCXOHSV8">
                   </div>                  
                 </div>
-                <br /><br />
-        
-              <div class="col-md-4 col-xs-2 col-md-offset-4">
-                  <button type="submit" name="Submit" class="btn-block btn-primary btn">Sign In</button>
+                             
+              <div class=" col-md-4 col-xs-4 col-xs-offset-4 col-md-offset-4" >
+                  <br /><br />
+                  <button type="submit" value="Submit" name="Submit" class="btn btn-primary btn-lg btn-block">Proceed</button>
               </div>
+            
             </div>
-
-          </form>  
+          </form> 
 
           <!-- Copyright and Footer-->
 
           <div class="mastfoot">
             <div class="inner">
-              <p>The St. Peter's School, Panchgani Old Boys Association</p>
+              <footer>
+                The St. Peter's School, Panchgani Old Boys Association
+              </footer>
+                <small>Built with ♥ by a Druryite </small>
             </div>  
           </div>
 
@@ -69,7 +69,6 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script> 
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/docs.min.js"></script>
+    <script src="js/bootstrap.min.js"></script> 
   </body>
 </html>
