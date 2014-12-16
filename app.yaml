@@ -17,17 +17,8 @@ handlers:
 
 # App Engine serves and caches static files contained in the listed directories
 # (and subdirectories). Uncomment and set the directory as needed.
-- url: /css
- mime_type: text/css
- static_dir: css
-
-- url: /images
- static_dir: images
- upload: images/.*
-
-- url: /js
- # mime_type: text/javascript
- static_dir: js
+# - url: 
+#  static_dir:
 
 
 # This handler tells app engine how to route requests to a WSGI application.

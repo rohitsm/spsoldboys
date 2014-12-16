@@ -18,8 +18,7 @@ import logging
 import config
 from db import Oldboy
 
-
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 # URL = recaptcha_url? + secret=your_secret & response=response_string&remoteip=user_ip_address'
 recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'
@@ -43,6 +42,7 @@ def index():
     # Oldboy.add_entry()
 
     return render_template('index.html')
+    # return redirect("http://www.google.com")
 
 def verify_captcha(recaptcha_response):
 	res =  recaptcha_url + \
