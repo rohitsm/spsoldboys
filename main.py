@@ -36,13 +36,6 @@ def index():
     # Oldboy.add_entry()
     return render_template('index.html')
 
-@app.route('/addrecord')
-def addrecord():
-    """ Return page with Google form embedded
-        in it for entering new record."""
-    
-    return render_template('addrecord.html')
-
 def verify_captcha(recaptcha_response):
 	res =  recaptcha_url + \
 			"?secret=" + recaptcha_secret + \
@@ -161,6 +154,12 @@ def search_request():
     # For GET requests
     return redirect(url_for('index'))
 
+@app.route('/addrecord')
+def addrecord():
+    """ Return page with Google form embedded
+        in it for entering new record."""
+    
+    return render_template('addrecord.html')
 
 @app.errorhandler(404)
 def page_not_found(e):

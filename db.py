@@ -168,38 +168,3 @@ class Oldboy(ndb.Model):
 		except:
 			print sys.exc_info()
 
-
-# new_entry = Oldboy(
-# 			firstname = "Bob",
-# 			surname = "Smith",
-# 			year = 1973
-# 	)
-# new_entry.put()
-
-# q = Oldboy.query()
-# for qry in q.fetch():
-# 	logging.info("%s" % str(qry))
-
-# qry = Oldboy.query(Oldboy.surnameLC == "Smith").order(-Oldboy.firstnameLC).order(Oldboy.year)
-# logging.info("count  = %d" % qry.count())
-# for q in qry.fetch():
-# 	logging.info("%s %s %s" % (str(q.firstnameLC), str(q.surnameLC), str(q.year)))
-
-# qry = Oldboy.query(ndb.AND(Oldboy.surnameLC == "Smith", Oldboy.year == 1973)).order(Oldboy.firstnameLC).order(Oldboy.year)
-# logging.info("count  = %d" % qry.count())
-# for q in qry.fetch():
-# 	logging.info("%s %s %s" % (str(q.firstnameLC), str(q.surnameLC), str(q.year)))
-
-
-
-# qry = Oldboy.query(Oldboy.year == 1973)
-# logging.info("count  = %d" % qry.count())
-# for q in qry.fetch():
-# 	logging.info("%s %s" % (str(q.firstnameLC), str(q.surnameLC)))
-
-
-
-	# qry = Oldboy.query(Oldboy.year == <value here>)
-
-
-
