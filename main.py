@@ -1,4 +1,8 @@
 """`main` is the top level module for your Flask application."""
+
+__author__ = 'rohitsm'
+__page__ = 'https://github.com/rohitsm/spsoldboys'
+
 # Python
 import urllib2
 import json

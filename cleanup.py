@@ -1,5 +1,8 @@
 import string
 
+__author__ = 'rohitsm'
+__page__ = 'https://github.com/rohitsm/spsoldboys'
+
 class CleanUp:
 
 	def remove_punctuations(self, word):

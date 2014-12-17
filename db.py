@@ -1,6 +1,9 @@
 # Related DB info found here
 # https://cloud.google.com/appengine/docs/python/ndb/queries
 
+__author__ = 'rohitsm'
+__page__ = 'https://github.com/rohitsm/spsoldboys'
+
 # Google App Engine
 from google.appengine.ext import ndb
 import logging
