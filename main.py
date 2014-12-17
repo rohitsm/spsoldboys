@@ -44,6 +44,13 @@ def index():
     return render_template('index.html')
     # return redirect("http://www.google.com")
 
+@app.route('/addrecord')
+def addrecord():
+    """ Return page with Google form embedded
+        in it for entering new record."""
+    
+    return render_template('addrecord.html')
+
 def verify_captcha(recaptcha_response):
 	res =  recaptcha_url + \
 			"?secret=" + recaptcha_secret + \
@@ -150,14 +157,15 @@ def search_request():
                 print "Dict = ", rec
                 return render_template('results.html', records = rec, headers = headers, count = qry.count())
 
-            return render_template('index.html', records = rec)
+            return render_template('notfound.html')
         
         except:
             print "Woah horsey! This shouldn't be happening!"
             print sys.exc_info() 
             # Add redirect to incorrect page
-            return redirect(url_for('index'))
+            return render_template('notfound.html')
 
+    # For GET requests
     return redirect(url_for('index'))
 
 

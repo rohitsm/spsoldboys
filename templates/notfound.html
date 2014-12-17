@@ -11,36 +11,50 @@
     <title>SPS Alumni Search Page</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="../static/css/search.css" rel="stylesheet">
+    <link href="/static/css/results.css" rel="stylesheet">
 
   </head>
 
   <body>
     <div class="container">
-
       <div class="center-block text-center">
-        <h1 class="page-header">Lookup the Oldboys Database</h1>
+        <h2 class="page-header">No Records found! </h2>
+      </div>
         <br />
 
-<iframe src="https://docs.google.com/forms/d/1wjYSGjwxSVRWB9aFQU2iRhHFldcmnZfAo881noJXwlw/viewform?embedded=true" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-        
+
+    <p class="lead text-center">
+      Sorry your search terms did not return any records. 
+      <br /><br />
+      <ul class="lead">
+      <li>
+        If you didn't find you were looking for, <a href="{{ url_for('index') }} ">try again </a> or contact the <a href="mailto:oldboys@gmail.com" class="text-danger">Old Boys' Association</a>. 
+      </li>
       
-      </div>
+      <li>
+        If you would like to update your records, <a href="{{ url_for('addrecord') }}" class="text-danger">click here. </a>
+      </li>
+
+      <li>
+        If none of these work for you, try yodeling...! <span class="glyphicon glyphicon-hand-up"></span>
+      </li>
+
+    </p>
 
     </div><!-- /.container -->
 
+    	<br /><br /><br /><br />
     <div class="mastfoot text-center">
       <div class="inner">
         <footer >
-          <strong> The St. Peter's School, Panchgani Old Boys Association</strong>
+          <strong> The St. Peter's School, Panchgani Old Boys' Association</strong>
         </footer>
       </div>  
     </div>
-
-
+	
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
