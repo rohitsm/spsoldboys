@@ -22,27 +22,15 @@ app = Flask(__name__, static_url_path='/static')
 
 # URL = recaptcha_url? + secret=your_secret & response=response_string&remoteip=user_ip_address'
 recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'
+
 # ReCAPTCHA secret key
 recaptcha_secret = config.conf['SHARED_KEY']
-
-# def add_to_db():
-#     new_entry = Oldboy(
-#                 firstname = 'John',
-#                 surname = 'Smith',
-#                 year = 1973,
-#                 firstnameLC = 'John'.lower(),
-#                 surnameLC = 'Smith'.lower()
-#                 )
-#     new_entry.put()
-
 
 @app.route('/')
 def index():
     """Return a friendly HTTP greeting."""
     # Oldboy.add_entry()
-
     return render_template('index.html')
-    # return redirect("http://www.google.com")
 
 @app.route('/addrecord')
 def addrecord():
@@ -66,10 +54,11 @@ def verify_captcha(recaptcha_response):
 def authentication():
     # Verify reCaptcha input and render page correctly if captcha verified
     if request.method == 'POST':
-    	# if(verify_captcha(request.form['g-recaptcha-response'])):
-    	# 	return render_template('search.html')
-        return render_template('search.html') #Delete this line and uncomment 2 above
+    	if(verify_captcha(request.form['g-recaptcha-response'])):
+    		return render_template('search.html')
+        # return render_template('search.html') #Delete this line and uncomment 2 above
     
+    # For GET requests
     return redirect(url_for('index'))
 
 # Read data from DB and convert it to a list of dict and return it

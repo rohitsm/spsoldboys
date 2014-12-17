@@ -22,17 +22,13 @@
       <div class="center-block text-center">
         <h2 class="page-header">Search Results</h2>
         <h3 class="lead"> Your search returned {{count}} results. </h3>
-    	<h5>Didn't find what you were looking for? <a href="{{	url_for('index') }} ">Try again </a> or contact the <a href="mailto:oldboys@gmail.com" class="text-danger">Old Boys' Association</a>
-    	</h5>
       </div>
         <br />
 
 
     <div id="tableview"  class="container text-center text-nowrap">
 
-        
-        <div class="">
-			<table class="table table-bordered table-condensed table-striped ">
+			<table class="table table-responsive table-bordered table-condensed table-striped ">
 				{% for key in headers%}		        						
 					<th class="text-center"> {{ key }} </th>						
 
@@ -48,10 +44,10 @@
 					</tr>			
 				{% endfor %}
 			</table>
-		</div>
-      </div>
 
     </div><!-- /.container -->
+
+
     <h5 class="text-center">Didn't find what you were looking for? <a href="{{	url_for('index') }} ">Try again </a> or contact the <a href="mailto:oldboys@gmail.com" class="text-danger">Old Boys' Association</a>. If you would like to update your records, <a href="{{ url_for('addrecord') }}" class="text-danger">click here. </a>
     </h5>
     	
@@ -70,7 +66,5 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
