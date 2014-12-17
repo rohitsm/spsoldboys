@@ -105,19 +105,17 @@ def get_search_record( qry ):
         
         print 'ob_entry = ', ob_entry
         total_ob_entries.append(ob_entry)
-        # print "Type of fax = ", type(ob_entry['Fax'])
-        # print "Fax = ", ob_entry['Fax']
-
-
 
     print "Len of total_ob_entries = ", total_ob_entries
-    return total_ob_entries
+    return total_ob_entries, ob_entry
 
 # Send data from DB to 'results' page
 @app.route('/results', methods=['GET', 'POST'])
 def search_request():
     # Get search terms
     record = []
+    # For table headers in while rendering table in the results
+    headers = {} 
     if request.method == 'POST':
         try:
             oldboy_fname = request.form['firstname'].lower()
@@ -144,11 +142,15 @@ def search_request():
             print "Count = ", qry.count()
 
             if (qry.count() != 0):
-                record = get_search_record(qry)
-                print "Dict = ", record
-                return render_template('results.html', records = record)
+                record, headers = get_search_record(qry)
 
-            return render_template('index.html', records = record)
+                # Records sorted by Last names
+                rec = sorted(record, key=lambda k: k['Last Name'])
+
+                print "Dict = ", rec
+                return render_template('results.html', records = rec, headers = headers, count = qry.count())
+
+            return render_template('index.html', records = rec)
         
         except:
             print "Woah horsey! This shouldn't be happening!"

@@ -1,28 +1,75 @@
-<!doctype html>
-<head><title> Results </title></head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
 
-<h1> Hello World</h1>
-<body>
+    <title>SPS Alumni Search Page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/results.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+      <div class="center-block text-center">
+        <h1 class="page-header">Lookup the Oldboys Database</h1>
+        <h3 class="lead"> Your search returned {{count}} results</h3>
+      </div>
+        <br />
+
+
+    <div id="tableview"  class="container text-center text-nowrap">
+
+        
+        <div class="">
+			<table class="table table-bordered table-condensed table-striped ">
+				{% for key in headers%}		        						
+					<th> {{ key }} </th>						
+
+				{% endfor %}
+					
+		        {% for entry in records %}
+					<tr>
+					{% for key, value in entry.iteritems()%}
+
+								<td> {{ value }}	</td>
+
+					{% endfor %}
+					</tr>			
+				{% endfor %}
+			</table>
+		</div>
+        
+      
+      </div>
+
+    </div><!-- /.container -->
+
+    <div class="mastfoot text-center">
+      <div class="inner">
+        <footer >
+          <strong> The St. Peter's School, Panchgani Old Boys Association</strong>
+        </footer>
+      </div>  
+    </div>
 	<br><br>
-
-	{% for entry in records %}
-	<table>
-
-		{% for key, value in entry.iteritems() %}
-			<tr>
-				<td> {{ key }}		</td>
-				<td> {{ value }}	</td>
-			</tr>			
-		{% endfor %}
-
-		<hr />
-	</table>
-	{% endfor %}
-
-	<br><br>
-	
+		
 	<a href="{{	url_for('index') }} "> Index </a>
 
-</body>
-
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
 </html>
