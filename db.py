@@ -117,7 +117,7 @@ class Oldboy(ndb.Model):
 
 		# Reading from the csv files
 		try:
-			with open('relatedFiles/oldboys.csv', 'rU') as csvfile:
+			with open('relatedFiles/oldboys1.csv', 'rU') as csvfile:
 				entry_list = []
 				reader = csv.reader(csvfile, delimiter = ',', quotechar = "|", dialect=csv.excel_tab)
 				i = 0

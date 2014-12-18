@@ -96,10 +96,10 @@ def get_search_record( qry ):
 
         ob_entry['Last Updated'] = str(q.last_updated)
         
-        print 'ob_entry = ', ob_entry
+        # print 'ob_entry = ', ob_entry
         total_ob_entries.append(ob_entry)
 
-    print "Len of total_ob_entries = ", total_ob_entries
+    # print "Len of total_ob_entries = ", total_ob_entries
     return total_ob_entries, ob_entry
 
 # Send data from DB to 'results' page
@@ -140,7 +140,7 @@ def search_request():
                 # Records sorted by Last names
                 rec = sorted(record, key=lambda k: k['Last Name'])
 
-                print "Dict = ", rec
+                # print "Dict = ", rec
                 return render_template('results.html', records = rec, headers = headers, count = qry.count())
 
             return render_template('notfound.html')
