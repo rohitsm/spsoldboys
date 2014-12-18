@@ -1,4 +1,4 @@
-#### The Alumni Database of [St. Peter's School, Panchgani](st.peterspanchgani.org) ####
+#### The Alumni Database of [St. Peter's School, Panchgani](http://st.peterspanchgani.org/) ####
 
 Prototype alumni database of the school deployed on Google App Engine and uses the Flask framework. Reads records from csv file and converts it into the datastore entries. 
 
@@ -9,7 +9,9 @@ This application uses the Python Flask Skeleton for App Engine from Google provi
 
 ##### Known and pending issues #####
 * `cleanup.py`: 
-		Year fails for some entries that are not entererd in the correct format. Eg. The following case will fail for entries after 2009.
+		Year fails for some entries that are not entererd in the correct format. 
+
+		**Eg.** The following case will fail for entries after 2009.
 		
 ```python
 
