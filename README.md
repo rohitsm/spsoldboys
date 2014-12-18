@@ -9,9 +9,7 @@ This application uses the Python Flask Skeleton for App Engine from Google provi
 
 ##### Known and pending issues #####
 * `cleanup.py`: 
-		Year fails for some entries that are not entererd in the correct format. 
-
-		**Eg.** The following case will fail for entries after 2009.
+		Year fails for some entries that are not entererd in the correct format. **Eg.** The following case will fail for entries after 2009.
 		
 ```python
 
