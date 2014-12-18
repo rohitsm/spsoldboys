@@ -11,10 +11,11 @@ This application uses the Python Flask Skeleton for App Engine from Google provi
 * `cleanup.py`: 
 		Year fails for some entries that are not entererd in the correct format. Eg. The following case will fail for entries after 2009.
 		
-		```python
-			if (len(str(year)) == 2):
-				return str(str(19) + str(year))
-		```
+```python
+
+	if (len(str(year)) == 2):
+		return str(str(19) + str(year))
+```
 
 * Errors due to GAE datastore's daily read/write quota limit needs to be handled.
 
