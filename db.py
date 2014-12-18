@@ -57,58 +57,49 @@ class Oldboy(ndb.Model):
 	firstnameLC = ndb.StringProperty()		# firstname in lowercase
 	surnameLC 	= ndb.StringProperty()		# lastname in lowercase
 
+	
+	# Class method that gets entries from datastore based on values of 'firstname', 'surname' and/or 'year'
 	@classmethod
 	def get_query(self, firstname, surname, year):
-		
-		print "before DB query %s %s %s " % (firstname, surname, year)
+
+		# For debugging purposes
+		# print "before DB query %s %s %s " % (firstname, surname, year)
 
 		if firstname is not None:
 
 			# Firstname + Year
 			if year is not None:
-				print "1 %s %s %s " % (firstname, surname, year)
 				return Oldboy.query(ndb.AND(Oldboy.firstnameLC == firstname, Oldboy.year == year))  \
 									.order(Oldboy.firstnameLC).order(Oldboy.year)
 			# Firstname + Surname
 			if surname is not None:
-				print "2 %s %s %s " % (firstname, surname, year)
 				return Oldboy.query(ndb.AND(Oldboy.firstnameLC == firstname, Oldboy.surnameLC == surname))  \
 									.order(Oldboy.surnameLC).order(Oldboy.firstnameLC)
 
-			# Firstname
-			print "3 %s %s %s " % (firstname, surname, year)
+			# Firstname	
 			return Oldboy.query(Oldboy.firstnameLC == firstname).order(Oldboy.firstnameLC)
 
 		if surname is not None:
 			
 			# Surname + Year
 			if year is not None:
-				print "4 %s %s %s " % (firstname, surname, year)
 				return Oldboy.query(ndb.AND(Oldboy.surnameLC == surname, Oldboy.year == year))  \
 									.order(Oldboy.surnameLC).order(Oldboy.year)
 
 			# Surname + Firstname
 			if firstname is not None:
-				print "5 %s %s %s " % (firstname, surname, year)
 				return Oldboy.query(ndb.AND(Oldboy.surnameLC == surname, Oldboy.firstnameLC == firstname))  \
 									.order(Oldboy.surnameLC).order(Oldboy.firstnameLC)
 
 			# Surname
-			print "6 %s %s %s " % (firstname, surname, year)
 			return Oldboy.query(Oldboy.surnameLC == surname).order(Oldboy.surnameLC)
-
 		
 		# Year
-		print "after DB query %s %s %s " % (firstname, surname, year)
 		return Oldboy.query(Oldboy.year == year).order(Oldboy.year)
 
 
-	# @classmethod
-	# def delete_all_entries(self):
-	# 	ob_entry = Oldboy
-
-
-
+	# For adding entry into the datastore. Reads input from .csv file. 
+	# Function called in index() in main.py. Function uses datastore schema mentioned above. 
 	@classmethod
 	def add_entry(self):
 		# record = Oldboy.query().get()
@@ -123,9 +114,11 @@ class Oldboy(ndb.Model):
 				i = 0
 				for row in reader:
 					if i != 0:
-					# if i > 1461:
-						entry_list = cleanup.remove_quotes(list(row))	#row is of 'List' type
+						entry_list = cleanup.remove_quotes(list(row))
+						
+						# Print out list of entries as they are being read from csv file
 						print  "entry_list = ", entry_list
+						
 						oldboy_entry = Oldboy(
 							firstname 	= str(entry_list[0]).upper(),
 							surname 	= str(entry_list[1]).upper(),
@@ -158,13 +151,15 @@ class Oldboy(ndb.Model):
 							surnameLC 	= str(cleanup.remove_punctuations(entry_list[1])).lower()
 							)
 						oldboy_entry.put()
+						
+						# Print out list of entries as they are being written to the datastore.
 						# print oldboy_entry
-						# break
-					print "i = ", i
+						
+					print "i = ", i # Counter for number of records
 					i+= 1
 
 			# Close the file
 			csvfile.close()
 		except:
-			print sys.exc_info()
+			logging.error(sys.exc_info())
 
