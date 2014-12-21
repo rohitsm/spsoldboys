@@ -123,10 +123,6 @@ def search_request():
             oldboy_lname = cgi.escape(request.form['lastname'], True).lower()
             year = cgi.escape(request.form['year'], True)
 
-            print "oldboy_fname = ", oldboy_fname
-            print "oldboy_lname = ", oldboy_lname
-            print "oldboy_year = ", year
-
             if(not year):            
                 year = None
             
