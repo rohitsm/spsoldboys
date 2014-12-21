@@ -119,9 +119,13 @@ def search_request():
     headers = {} 
     if request.method == 'POST':
         try:
-            oldboy_fname = cgi.escape(request.form['firstname']).lower()
-            oldboy_lname = cgi.escape(request.form['lastname']).lower()
-            year = cgi.escape(request.form['year'])
+            oldboy_fname = cgi.escape(request.form['firstname'], True).lower()
+            oldboy_lname = cgi.escape(request.form['lastname'], True).lower()
+            year = cgi.escape(request.form['year'], True)
+
+            print "oldboy_fname = ", oldboy_fname
+            print "oldboy_lname = ", oldboy_lname
+            print "oldboy_year = ", year
 
             if(not year):            
                 year = None
