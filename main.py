@@ -7,6 +7,7 @@ __page__ = 'https://github.com/rohitsm/spsoldboys'
 import urllib2
 import json
 import sys
+import cgi
 from collections import OrderedDict
 
 # Flask
@@ -118,9 +119,9 @@ def search_request():
     headers = {} 
     if request.method == 'POST':
         try:
-            oldboy_fname = request.form['firstname'].lower()
-            oldboy_lname = request.form['lastname'].lower()
-            year = request.form['year']
+            oldboy_fname = cgi.escape(request.form['firstname']).lower()
+            oldboy_lname = cgi.escape(request.form['lastname']).lower()
+            year = cgi.escape(request.form['year'])
 
             if(not year):            
                 year = None

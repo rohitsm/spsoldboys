@@ -10,6 +10,9 @@
 
     <title>SPS Alumni Search Page</title>
 
+    <!-- Custom JS -->
+    <script type="text/javascript" src="static/js/search.js"></script> 
+
     <!-- Bootstrap core CSS -->
     <link type="text/css" href="/static/css/bootstrap.min.css" rel="stylesheet">
 
@@ -26,20 +29,20 @@
         <br />
 
 
-        <form class="form-group" role="form" action="/results" method="POST">
+        <form class="form-group" role="form" action="/results" method="POST" onSubmit="return validate();">
             <p class="lead">Search records by Name</p>
 
             <div class="text-left col-md-4 col-xs-6 col-md-offset-2">
               <div class="form-group">
                 <h4 class="text-center">First Name</h4>              
-                <input type="text" class="form-control input-lg" placeholder="eg. John" name="firstname" autofocus >            
+                <input type="text" class="form-control input-lg" placeholder="eg. John" name="firstname" id="firstname" autofocus >            
               </div>
             </div>
 
             <div class="text-left col-md-4 col-xs-6 ">
               <div class="form-group ">     
                 <h4 class="text-center">Last Name</h4>         
-                <input type="text" class="form-control input-lg" placeholder="eg. Smith" name="lastname">
+                <input type="text" class="form-control input-lg" placeholder="eg. Smith" name="lastname" id="lastname">
               </div>
             </div>
 
@@ -52,7 +55,7 @@
 
             <div class="col-md-2 col-xs-2 col-md-offset-5">
               <div class="form-group ">              
-                <input type="number" class="form-control input-lg" placeholder="eg. 1973" name="year" min="1904" max="2014">
+                <input type="number" class="form-control input-lg" placeholder="eg. 1973" name="year" min="1904" max="2014" id="year">
               </div>
             </div>
 
