@@ -23,4 +23,4 @@ This application uses the Python Flask Skeleton for App Engine from Google provi
 
 #### License ####
 
-[MIT]()
+[MIT](https://github.com/rohitsm/spsoldboys/blob/master/MIT%20License.md)
