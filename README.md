@@ -19,4 +19,4 @@ This application uses the Python Flask Skeleton for App Engine from Google provi
 
 * Errors due to GAE datastore's daily read/write quota limit needs to be handled.
 
-* Minor bugs (CSS and otherwise)
+* ~~Minor bugs (CSS and otherwise)~~
