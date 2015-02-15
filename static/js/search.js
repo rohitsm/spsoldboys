@@ -20,7 +20,7 @@ function validate() {
     if ((fn == "" || fn.match(/^\s*$/)) &&
     	(ln == "" || ln.match(/^\s*$/)) && 
     	(yr == "" || yr.match(/^\s*$/))	) {
-    	alert("Please provide an correct input! ");
+    	alert("Please provide a correct input! ");
     	return false;
     }
 
