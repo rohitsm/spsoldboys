@@ -8,18 +8,9 @@ App deployed live at [spsoldboys.appspot.com](http://spsoldboys.appspot.com/). P
 This application uses the Python Flask Skeleton for App Engine from Google provided [here](https://github.com/GoogleCloudPlatform/appengine-python-flask-skeleton)
 
 ##### Known and pending issues #####
-* `cleanup.py`: 
-		Year fails for some entries that are not entererd in the correct format. **Eg.** The following case will fail for entries after 2009.
-		
-```python
+Look up [Issues](https://github.com/rohitsm/spsoldboys/issues) for known issue and list of ToDos.
 
-	if (len(str(year)) == 2):
-		return str(str(19) + str(year))
-```
-
-* Errors due to GAE datastore's daily read/write quota limit needs to be handled.
-
-* ~~ Minor bugs (CSS and otherwise) ~~ Fixed known CSS issues
+* ~~Minor bugs (CSS and otherwise)~~ Fixed known CSS issues
 
 #### License ####
 
