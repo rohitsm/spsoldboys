@@ -8,7 +8,6 @@ import urllib2
 import json
 import sys
 import cgi
-from collections import OrderedDict
 
 # Flask
 from flask import Flask
@@ -42,57 +41,14 @@ def verify_captcha(recaptcha_response):
     return resp
 
 
-# Read data from DB and convert it to a list of dict and return it
-def get_search_record( qry ):
-    print "inside get_search_record()"
-    
-    # Format of each db record
-    total_ob_entries = []
-
-    for q in qry.fetch():        
-        ob_entry = OrderedDict()
-        ob_entry['First Name']  = str(q.firstname)
-        ob_entry['Last Name']   = str(q.surname)
-        ob_entry['Year']        = str(q.year)
-        ob_entry['House']       = str(q.house)
-
-        # Address info
-        ob_entry['Address 1']   = str(q.address1)
-        ob_entry['Address 2']   = str(q.address2)
-        ob_entry['Address 3']   = str(q.address3)
-        ob_entry['Address 4']   = str(q.address4)
-        ob_entry['City']        = str(q.city)
-        ob_entry['State']       = str(q.state)
-        ob_entry['Postal Code'] = str(q.pincode)
-        ob_entry['Country']     = str(q.country)
-
-        # Phone info.
-        ob_entry['Phone 1 (R)'] = str(q.phone1r)
-        ob_entry['Phone 2 (R)'] = str(q.phone2r)
-        ob_entry['Phone 1 (W)'] = str(q.phone1w)
-        ob_entry['Phone 2 (W)'] = str(q.phone2w)
-        ob_entry['Fax']         = str(q.fax)
-
-        # Other info.
-        ob_entry['Profession']  = str(q.profession)
-        ob_entry['Email']       = str(q.email)
-        ob_entry['Status']      = str(q.status)
-
-        ob_entry['Last Updated'] = str(q.last_updated)
-        
-        # print 'ob_entry = ', ob_entry
-        total_ob_entries.append(ob_entry)
-
-    return total_ob_entries, ob_entry
-
-
 @app.route('/')
 def index():
     """Return a friendly HTTP greeting."""
     
-    # To add entry to DB, uncomment below line. add_entry() reads from csv input. 
-    # Oldboy.add_entry()
-
+    # To add entry to DB, uncomment below line. set_record() reads from csv input. 
+    # num_of_records = Oldboy.set_record()
+    # print "No of records written = " + str(num_of_records)
+    # return "helloWorld!"
     return render_template('index.html')
 
 
@@ -102,7 +58,7 @@ def authentication():
     if request.method == 'POST':
     	if(verify_captcha(request.form['g-recaptcha-response'])):
     		return render_template('search.html')
-        # return render_template('search.html') #Delete this line and uncomment 2 above
+        return render_template('search.html') #Delete this line and uncomment 2 above
     
     # For GET requests
     return redirect(url_for('index'))
@@ -119,38 +75,45 @@ def search_request():
     headers = {} 
     if request.method == 'POST':
         try:
-            oldboy_fname = cgi.escape(request.form['firstname'], True).lower()
-            oldboy_lname = cgi.escape(request.form['lastname'], True).lower()
+            firstName = cgi.escape(request.form['firstname'], True).lower().replace(' ', '')
+            lastName = cgi.escape(request.form['lastname'], True).lower().replace(' ', '')
             year = cgi.escape(request.form['year'], True)
+            # print 'firstname = %s \nlastName = %s, \nyear =%s ' %(firstName, lastName, year)
 
             if(not year):            
                 year = None
             
-            if( (not oldboy_fname) or (oldboy_fname.isspace()) ):
-                oldboy_fname = None
+            if( (not firstName) or (firstName.isspace()) ):
+                firstName = None
 
-            if( (not oldboy_lname) or (oldboy_lname.isspace()) ):
-                oldboy_lname = None
+            if( (not lastName) or (lastName.isspace()) ):
+                lastName = None
 
             # Retrieve query from the datastore.
-            qry = Oldboy.get_query(oldboy_fname, oldboy_lname, year)
+            # record = DB query results
+            # header = for rendering table headers
+            record = Oldboy.get_record(firstName, lastName, year) 
+            # print "record = %s" %(record)
 
-            if (qry.count() != 0):
-                record, headers = get_search_record(qry)
+            if (record is not None):
+                count = len(record)
+                headers = record[0]
 
                 # Records sorted by Last names
-                rec = sorted(record, key=lambda k: k['Last Name'])
+                sorted_records = sorted(record, key=lambda k: k['Last Name'])
 
-                # print "Dict = ", rec
-                return render_template('results.html',  records = rec, \
+                # print "Dict = ", sorted_records
+                return render_template('results.html',  records = sorted_records, \
                                                         headers = headers, \
-                                                        count = qry.count())
+                                                        count = count)
 
             return render_template('notfound.html')
         
-        except:
+        except Exception as e:
             print "Woah horsey! This shouldn't be happening!"
             logging.error(sys.exc_info())
+            print e
+
             # Redirect to "not_found" page
             return render_template('notfound.html')
 

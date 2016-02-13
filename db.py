@@ -11,6 +11,7 @@ import logging
 # Python
 import csv
 import sys
+from collections import OrderedDict
 
 # Application related files
 from cleanup import CleanUp
@@ -60,7 +61,7 @@ class Oldboy(ndb.Model):
 	
 	# Class method that gets entries from datastore based on values of 'firstname', 'surname' and/or 'year'
 	@classmethod
-	def get_query(self, firstname, surname, year):
+	def lookup_datastore(self, firstname, surname, year):
 
 		# For debugging purposes
 		# print "before DB query %s %s %s " % (firstname, surname, year)
@@ -98,26 +99,79 @@ class Oldboy(ndb.Model):
 		return Oldboy.query(Oldboy.year == year).order(Oldboy.year)
 
 
+	# Return datastore record as a list of dict
+	@classmethod
+	def get_record(self, firstName, lastName, year ):
+		
+		# Lookup datastrore
+		qry = Oldboy.lookup_datastore(firstName, lastName, year)
+		
+		if (qry.count() == 0):
+			return None
+
+		# print "inside get_record()"
+	    
+		# Format of each db record
+		ob_entries = []
+
+		for q in qry.fetch():
+
+			ob_entry = OrderedDict()
+			ob_entry['First Name']  = str(q.firstname)
+			ob_entry['Last Name']   = str(q.surname)
+			ob_entry['Year']        = str(q.year)
+			ob_entry['House']       = str(q.house)
+
+			# Address info
+			ob_entry['Address 1']   = str(q.address1)
+			ob_entry['Address 2']   = str(q.address2)
+			ob_entry['Address 3']   = str(q.address3)
+			ob_entry['Address 4']   = str(q.address4)
+			ob_entry['City']        = str(q.city)
+			ob_entry['State']       = str(q.state)
+			ob_entry['Postal Code'] = str(q.pincode)
+			ob_entry['Country']     = str(q.country)
+
+			# Phone info.
+			ob_entry['Phone 1 (R)'] = str(q.phone1r)
+			ob_entry['Phone 2 (R)'] = str(q.phone2r)
+			ob_entry['Phone 1 (W)'] = str(q.phone1w)
+			ob_entry['Phone 2 (W)'] = str(q.phone2w)
+			ob_entry['Fax']         = str(q.fax)
+
+			# Other info.
+			ob_entry['Profession']  = str(q.profession)
+			ob_entry['Email']       = str(q.email)
+			ob_entry['Status']      = str(q.status)
+
+			ob_entry['Last Updated'] = str(q.last_updated)
+
+			# print 'ob_entry = ', ob_entry
+			ob_entries.append(ob_entry)
+
+		return ob_entries
+
+
 	# For adding entry into the datastore. Reads input from .csv file. 
 	# Function called in index() in main.py. Function uses datastore schema mentioned above. 
 	@classmethod
-	def add_entry(self):
+	def set_record(self):
 		# record = Oldboy.query().get()
 		# print "type = ", type(record)
 		# print "Record = ", record
 
 		# Reading from the csv files
+		i = 0
 		try:
 			with open('relatedFiles/oldboys1.csv', 'rU') as csvfile:
 				entry_list = []
 				reader = csv.reader(csvfile, delimiter = ',', quotechar = "|", dialect=csv.excel_tab)
-				i = 0
 				for row in reader:
 					if i != 0:
 						entry_list = cleanup.remove_quotes(list(row))
 						
 						# Print out list of entries as they are being read from csv file
-						print  "entry_list = ", entry_list
+						# print  "entry_list = ", entry_list
 						
 						oldboy_entry = Oldboy(
 							firstname 	= str(entry_list[0]).upper(),
@@ -160,6 +214,7 @@ class Oldboy(ndb.Model):
 
 			# Close the file
 			csvfile.close()
+			return i
 		except:
 			logging.error(sys.exc_info())
 
