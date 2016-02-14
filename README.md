@@ -8,7 +8,7 @@ App deployed live at [spsoldboys.appspot.com](http://spsoldboys.appspot.com/). P
 This application uses the Python Flask Skeleton for App Engine from Google provided [here](https://github.com/GoogleCloudPlatform/appengine-python-flask-skeleton)
 
 ##### Known and pending issues #####
-Look up [Issues](https://github.com/rohitsm/spsoldboys/issues)
+Look up [Issues](https://github.com/rohitsm/spsoldboys/issues) for known issue and list of ToDos.
 
 * ~~Minor bugs (CSS and otherwise)~~ Fixed known CSS issues
 
