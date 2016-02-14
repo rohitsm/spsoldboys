@@ -161,13 +161,13 @@ class Oldboy(ndb.Model):
 		# print "Record = ", record
 
 		# Reading from the csv files
-		i = 0
+		num_of_records_written = 0
 		try:
 			with open('relatedFiles/oldboys1.csv', 'rU') as csvfile:
 				entry_list = []
 				reader = csv.reader(csvfile, delimiter = ',', quotechar = "|", dialect=csv.excel_tab)
 				for row in reader:
-					if i != 0:
+					if num_of_records_written != 0: #Skip table headers
 						entry_list = cleanup.remove_quotes(list(row))
 						
 						# Print out list of entries as they are being read from csv file
@@ -209,8 +209,8 @@ class Oldboy(ndb.Model):
 						# Print out list of entries as they are being written to the datastore.
 						# print oldboy_entry
 						
-					print "i = ", i # Counter for number of records
-					i+= 1
+					print "num_of_records_written = ", num_of_records_written # Counter for number of records
+					num_of_records_written+= 1
 
 			# Close the file
 			csvfile.close()
