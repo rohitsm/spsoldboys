@@ -21,7 +21,7 @@ class CleanUp:
 		
 		if (len(str(year)) == 2):
 			# Will fail for entries after 2009
-			return str(str(19) + str(year))
+			return str(str(20) + str(year))
 		
 		if (len(str(year)) == 4):
 			return str(year)
