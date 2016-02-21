@@ -163,7 +163,7 @@ class Oldboy(ndb.Model):
 		# Reading from the csv files
 		num_of_records_written = 0
 		try:
-			with open('relatedFiles/oldboys1.csv', 'rU') as csvfile:
+			with open('relatedFiles/oldboys.csv', 'rU') as csvfile:
 				entry_list = []
 				reader = csv.reader(csvfile, delimiter = ',', quotechar = "|", dialect=csv.excel_tab)
 				for row in reader:
@@ -214,7 +214,7 @@ class Oldboy(ndb.Model):
 
 			# Close the file
 			csvfile.close()
-			return i
+			return num_of_records_written
 		except:
 			logging.error(sys.exc_info())
 
