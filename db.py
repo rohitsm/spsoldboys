@@ -172,11 +172,23 @@ class Oldboy(ndb.Model):
 						
 						# Print out list of entries as they are being read from csv file
 						# print  "entry_list = ", entry_list
+
+						first_name = str(entry_list[0]).upper()
+						last_name = str(entry_list[1]).upper()
+						yr = str(cleanup.adjust_year(entry_list[2])).upper()
+
+						# Lookup datastrore
+						qry = Oldboy.get_record(firstName, lastName, year)
+						
+						if (qry is not None):
+							# Record
+							delete_from_db(first_name, last_name, year)
+
 						
 						oldboy_entry = Oldboy(
-							firstname 	= str(entry_list[0]).upper(),
-							surname 	= str(entry_list[1]).upper(),
-							year 		= str(cleanup.adjust_year(entry_list[2])).upper(),
+							firstname 	= first_name,
+							surname 	= last_name,
+							year 		= yr
 							house 		= str(entry_list[3]).upper(),
 							
 							# Address info
@@ -201,6 +213,7 @@ class Oldboy(ndb.Model):
 							email 		= str(entry_list[-2]).upper(),
 							status 		= str(entry_list[-1]).upper(),
 							
+							# To enable lookups
 							firstnameLC = str(cleanup.remove_punctuations(entry_list[0])).lower(),
 							surnameLC 	= str(cleanup.remove_punctuations(entry_list[1])).lower()
 							)
@@ -218,3 +231,7 @@ class Oldboy(ndb.Model):
 		except:
 			logging.error(sys.exc_info())
 
+	def delete_from_db():
+		"""For deleting entries that already exist
+		"""
+			
