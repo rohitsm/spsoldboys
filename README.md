@@ -11,6 +11,7 @@ This application uses the Python Flask Skeleton for App Engine from Google provi
 Look up [Issues](https://github.com/rohitsm/spsoldboys/issues) for known issue and list of ToDos.
 
 * ~~Minor bugs (CSS and otherwise)~~ Fixed known CSS issues
+* Updating the UI
 
 #### License ####
 
