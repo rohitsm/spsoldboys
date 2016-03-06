@@ -188,7 +188,7 @@ class Oldboy(ndb.Model):
 						oldboy_entry = Oldboy(
 							firstname 	= first_name,
 							surname 	= last_name,
-							year 		= yr
+							year 		= yr,
 							house 		= str(entry_list[3]).upper(),
 							
 							# Address info
