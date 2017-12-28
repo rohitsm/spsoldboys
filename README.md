@@ -1,3 +1,5 @@
+## This project is no longer live at the below link ##
+
 #### The Alumni Database of [St. Peter's School, Panchgani](http://st.peterspanchgani.org/) ####
 
 Prototype alumni database of the school deployed on Google App Engine and uses the Flask framework. Reads records from csv file and converts it into the datastore entries. 
